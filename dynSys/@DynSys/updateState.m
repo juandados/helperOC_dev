@@ -64,6 +64,9 @@ x1 = x(end, :)';
 obj.x = x1;
 obj.u = u;
 
-obj.xhist = cat(2, obj.xhist, x1);
-obj.uhist = cat(2, obj.uhist, u);
+% juan: Adding model constrains
+obj.constrainState(); % juan: This Method should be override depending in the model
+
+obj.xhist = cat(2, obj.xhist, obj.x);
+obj.uhist = cat(2, obj.uhist, obj.u);
 end

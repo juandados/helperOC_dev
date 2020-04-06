@@ -28,6 +28,7 @@ if numel(dims) ~= 2
 end
 
 % Rotate the grid using a 2D rotation matrix
+gRot = gIn;
 gRot.xs = gIn.xs;
 gRot.xs{dims(1)} = cos(theta)*gIn.xs{dims(1)} - sin(theta)*gIn.xs{dims(2)};
 gRot.xs{dims(2)} = sin(theta)*gIn.xs{dims(1)} + cos(theta)*gIn.xs{dims(2)};

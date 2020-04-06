@@ -3,10 +3,11 @@ classdef Quad4D < DynSys
     dims    % Active dimensions
     uMin    % Control bounds
     uMax
+    speedLimit
   end % end properties
   
   methods
-    function obj = Quad4D(x, uMin, uMax, dims)
+    function obj = Quad4D(x, uMin, uMax, speedLimit, dims)
       % obj = Quad4D(x, uMin, uMax)
       %
       % Constructor. Creates a quadrotor object with a unique ID,
@@ -31,8 +32,12 @@ classdef Quad4D < DynSys
         uMax = 3;
         uMin = -3;
       end
+
+      if nargin < 3
+        speedLimit = 10;
+      end
       
-      if nargin < 4
+      if nargin < 5
         dims = 1:4;
       end
       
@@ -41,6 +46,8 @@ classdef Quad4D < DynSys
       
       obj.uMax = uMax;
       obj.uMin = uMin;
+
+      obj.speedLimit = speedLimit;
       
       obj.pdim = [find(dims == 1) find(dims == 3)]; % Position dimensions
       obj.vdim = [find(dims == 2) find(dims == 4)]; % Velocity dimensions

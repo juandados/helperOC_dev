@@ -13,10 +13,10 @@ end
 %% Default parameters
 Color = 'k';
 MarkerSize = 20;
-ArrowLength = 10;
+ArrowLength = 1;
 LineStyle = 'none';
 LineWidth = 0.5;
-ArrowSize = 1;
+ArrowSize = 1;%1
 
 if isfield(extraArgs, 'Color')
   Color = extraArgs.Color;
@@ -54,13 +54,19 @@ end
 if isempty(obj.hpxpyhist) || ~isvalid(obj.hpxpyhist)
   % If no graphics handle has been created, create it.
   obj.hpxpyhist = plot(phist(1,:), phist(2,:), '.', 'color', Color, ...
-    'markersize', 1, 'LineStyle', LineStyle, 'LineWidth', LineWidth);
+    'markersize', 4, 'LineStyle', LineStyle, 'LineWidth', LineWidth);
   hold on
-else
-  % Otherwise, simply update the graphics handles
-  obj.hpxpyhist.XData = phist(1,:);
-  obj.hpxpyhist.YData = phist(2,:);
 end
+tailSize = 30;
+if isfield(extraArgs, 'tailSize')
+  tailSize = extraArgs.tailSize;
+  if tailSize == -1
+      tailSize = size(phist,2)-1;
+  end
+end
+startTail = max(1,size(phist,2)-tailSize);
+obj.hpxpyhist.XData = phist(1,startTail:end);
+obj.hpxpyhist.YData = phist(2,startTail:end);
 
 %% Plot current position and velocity using an arrow
 if isempty(obj.hpxpy) || ~isvalid(obj.hpxpy)
