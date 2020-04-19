@@ -69,4 +69,7 @@ obj.constrainState(); % juan: This Method should be override depending in the mo
 
 obj.xhist = cat(2, obj.xhist, obj.x);
 obj.uhist = cat(2, obj.uhist, obj.u);
+if isprop(obj, 'mode')
+    obj.modehist =  cat(2, obj.modehist, obj.mode);
+end
 end
